@@ -88,6 +88,7 @@ func (w *socketWrapper) Close(reason int, msg string) {
 	if w.sendQ != nil {
 		close(w.sendQ)
 	}
+	w.sendQ = nil
 	w.socket.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(reason, msg))
 	w.socket.Close()
 }
