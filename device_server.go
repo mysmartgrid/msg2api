@@ -95,6 +95,10 @@ fail:
 	return err
 }
 
+func (d *DeviceServer) RequestPrint(value string) {
+	d.socket.WriteJSON(map[string]interface{}{"cmd": "print", "args": time.Now()})
+}
+
 func (d *DeviceServer) doUpdate(msg *MessageIn) *Error {
 	var args DeviceCmdUpdateArgs
 
