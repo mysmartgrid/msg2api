@@ -3,6 +3,7 @@ package msg2api
 import (
 	"encoding/json"
 	"github.com/gorilla/websocket"
+	"net/http"
 	"time"
 )
 
@@ -64,4 +65,16 @@ func (u *UserServer) doGetValues(cmd *MessageIn) *Error {
 		return operationFailed(err.Error())
 	}
 	return nil
+}
+
+func NewUserServer(w http.ResponseWriter, r *http.Request) (*UserServer, error) {
+	base, err := initApiBaseFromHttp(w, r, []string{userApiProtocolV1})
+	if err != nil {
+		return nil, err
+	}
+
+	result := &UserServer{
+		apiBase: base,
+	}
+	return result, nil
 }
