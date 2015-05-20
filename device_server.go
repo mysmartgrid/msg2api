@@ -95,8 +95,8 @@ fail:
 	return err
 }
 
-func (d *DeviceServer) RequestPrint(value string) {
-	d.socket.WriteJSON(map[string]interface{}{"cmd": "print", "args": time.Now()})
+func (d *DeviceServer) RequestRealtimeUpdates(sensors []string) {
+	d.socket.WriteJSON(MessageOut{Command: "requestRealtimeUpdates", Args: sensors})
 }
 
 func (d *DeviceServer) doUpdate(msg *MessageIn) *Error {

@@ -10,7 +10,8 @@ import (
 type UserServer struct {
 	*apiBase
 
-	GetValues func(since time.Time, withMetadata bool) error
+	GetValues              func(since time.Time, withMetadata bool) error
+	RequestRealtimeUpdates func(sensors map[string][]string) error
 }
 
 func (u *UserServer) Run() error {
@@ -27,6 +28,9 @@ func (u *UserServer) Run() error {
 		switch msg.Command {
 		case "getValues":
 			opError = u.doGetValues(&msg)
+
+		case "requestRealtimeUpdates":
+			opError = u.doRequestRealtimeUpdates(&msg)
 
 		default:
 			u.socket.WriteJSON(MessageOut{Error: badCommand(msg.Command)})
@@ -61,6 +65,25 @@ func (u *UserServer) doGetValues(cmd *MessageIn) *Error {
 	}
 
 	err = u.GetValues(time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6), args.WithMetadata)
+	if err != nil {
+		return operationFailed(err.Error())
+	}
+	return nil
+}
+
+func (u *UserServer) doRequestRealtimeUpdates(cmd *MessageIn) *Error {
+	var args UserCmdRequestRealtimeUpdatesArgs
+	var err error
+
+	if err = json.Unmarshal(cmd.Args, &args); err != nil {
+		return operationFailed(err.Error())
+	}
+
+	if u.RequestRealtimeUpdates == nil {
+		return operationFailed("not supported")
+	}
+
+	err = u.RequestRealtimeUpdates(args)
 	if err != nil {
 		return operationFailed(err.Error())
 	}
