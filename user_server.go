@@ -10,7 +10,7 @@ import (
 type UserServer struct {
 	*apiBase
 
-	GetValues              func(since time.Time, withMetadata bool) error
+	GetValues              func(since, until time.Time, resolution string, withMetadata bool) error
 	RequestRealtimeUpdates func(sensors map[string][]string) error
 }
 
@@ -64,7 +64,11 @@ func (u *UserServer) doGetValues(cmd *MessageIn) *Error {
 		return operationFailed("not supported")
 	}
 
-	err = u.GetValues(time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6), args.WithMetadata)
+	err = u.GetValues(time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6),
+		time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6),
+		args.TimeResolution,
+		args.WithMetadata)
+
 	if err != nil {
 		return operationFailed(err.Error())
 	}
