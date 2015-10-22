@@ -11,7 +11,7 @@ type UserServer struct {
 	*apiBase
 
 	GetValues              func(since, until time.Time, resolution string, withMetadata bool) error
-	RequestRealtimeUpdates func(sensors map[string][]string) error
+	RequestRealtimeUpdates func(sensors UserCmdRequestRealtimeUpdatesArgs) error
 }
 
 func (u *UserServer) Run() error {
@@ -44,7 +44,7 @@ func (u *UserServer) Run() error {
 	return nil
 }
 
-func (u *UserServer) SendUpdate(values map[string]map[string][]Measurement) error {
+func (u *UserServer) SendUpdate(values map[string]map[string]map[string][]Measurement) error {
 	return u.socket.WriteJSON(MessageOut{Command: "update", Args: values})
 }
 

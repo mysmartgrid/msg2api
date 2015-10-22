@@ -41,10 +41,10 @@ type UserCmdGetValuesArgs struct {
 	WithMetadata   bool    `json:"withMetadata"`
 }
 
-type UserCmdRequestRealtimeUpdatesArgs map[string][]string
+type UserCmdRequestRealtimeUpdatesArgs map[string]map[string][]string //[Device][Resolution][Sensor]
 
 type UserEventUpdateArgs struct {
-	Values map[string]map[string][]Measurement `json:"values"`
+	Values map[string]map[string]map[string][]Measurement `json:"values"`
 }
 
 type UserEventMetadataArgs struct {
