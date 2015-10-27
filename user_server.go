@@ -11,7 +11,7 @@ type UserServer struct {
 	*apiBase
 
 	GetValues              func(since, until time.Time, resolution string, withMetadata bool) error
-	RequestRealtimeUpdates func(sensors UserCmdRequestRealtimeUpdatesArgs) error
+	RequestRealtimeUpdates func(sensors map[string]map[string][]string) error
 }
 
 func (u *UserServer) Run() error {
