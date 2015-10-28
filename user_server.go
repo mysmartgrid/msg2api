@@ -44,7 +44,7 @@ func (u *UserServer) Run() error {
 	return nil
 }
 
-func (u *UserServer) SendUpdate(values map[string]map[string]map[string][]Measurement) error {
+func (u *UserServer) SendUpdate(values UserEventUpdateArgs) error {
 	return u.socket.WriteJSON(MessageOut{Command: "update", Args: values})
 }
 
