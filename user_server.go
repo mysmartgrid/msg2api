@@ -65,7 +65,7 @@ func (u *UserServer) doGetValues(cmd *MessageIn) *Error {
 	}
 
 	err = u.GetValues(time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6),
-		time.Unix(int64(args.SinceUnixMs/1000), int64(args.SinceUnixMs)%1000*1e6),
+		time.Unix(int64(args.UntilUnixMs/1000), int64(args.UntilUnixMs)%1000*1e6),
 		args.TimeResolution,
 		args.WithMetadata)
 
