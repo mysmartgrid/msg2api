@@ -15,6 +15,9 @@ type UserServer struct {
 }
 
 func (u *UserServer) Run() error {
+
+	u.SendVersion()
+
 	for {
 		var msg MessageIn
 
@@ -42,6 +45,10 @@ func (u *UserServer) Run() error {
 	}
 
 	return nil
+}
+
+func (u *UserServer) SendVersion() error {
+	return u.socket.WriteJSON(MessageOut{Command: "version", Args: ApiVersion})
 }
 
 func (u *UserServer) SendUpdate(values UserEventUpdateArgs) error {
