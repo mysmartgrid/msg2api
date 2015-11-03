@@ -5,10 +5,6 @@ import (
 	"fmt"
 )
 
-const (
-	ApiVersion = "0.1"
-)
-
 type MessageIn struct {
 	Command string          `json:"cmd"`
 	Error   *Error          `json:"error"`
