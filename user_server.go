@@ -112,7 +112,7 @@ func (u *UserServer) doRequestRealtimeUpdates(cmd *MessageIn) *Error {
 }
 
 func NewUserServer(w http.ResponseWriter, r *http.Request) (*UserServer, error) {
-	base, err := initApiBaseFromHttp(w, r, []string{userApiProtocolV1})
+	base, err := initApiBaseFromHttp(w, r, []string{userApiProtocolV3})
 	if err != nil {
 		return nil, err
 	}
