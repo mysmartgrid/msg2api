@@ -58,12 +58,14 @@ func (u *UserServer) Run() error {
 
 // SendUpdate sends a set of measuremnts to the users.
 func (u *UserServer) SendUpdate(values UserEventUpdateArgs) error {
-	return u.socket.WriteJSON(MessageOut{Command: "update", Args: values})
+	now := time.Now().UnixNano() / 1e6
+	return u.socket.WriteJSON(MessageOut{Command: "update", Now: &now, Args: values})
 }
 
 // SendMetadata sends a set of metadata descriptions to the user.
 func (u *UserServer) SendMetadata(data UserEventMetadataArgs) error {
-	return u.socket.WriteJSON(MessageOut{Command: "metadata", Args: data})
+	now := time.Now().UnixNano() / 1e6
+	return u.socket.WriteJSON(MessageOut{Command: "metadata", Now: &now, Args: data})
 }
 
 func (u *UserServer) doGetMetadata(cmd *MessageIn) *Error {
