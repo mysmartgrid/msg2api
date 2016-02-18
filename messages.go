@@ -61,8 +61,8 @@ type UserCmdGetValuesArgs struct {
 }
 
 // UserCmdRequestRealtimeUpdatesArgs describes the Args field of a realtime update request from the user.
-// It maps device IDs to resolution to sensor arrays.
-type UserCmdRequestRealtimeUpdatesArgs map[string]map[string][]string
+// It maps device IDs to sensor arrays.
+type UserCmdRequestRealtimeUpdatesArgs map[string][]string
 
 // UserEventUpdateArgs describes the Args field of an "update" message to the user.
 type UserEventUpdateArgs struct {

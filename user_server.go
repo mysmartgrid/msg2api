@@ -21,7 +21,7 @@ type UserServer struct {
 
 	// RequestRealtimeUpdates handles a request for realtime update on a given set of sensors.
 	// 'sensors' contains a mapping from device IDs to a resolution to an array of sensor IDs.
-	RequestRealtimeUpdates func(sensors map[string]map[string][]string) error
+	RequestRealtimeUpdates func(sensors map[string][]string) error
 }
 
 // Run listens for incoming commands on the websocket and handles them.
