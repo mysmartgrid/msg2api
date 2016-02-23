@@ -1,0 +1,3 @@
+package: github.com/mysmartgrid/msg2api
+import:
+- package: github.com/gorilla/websocket
