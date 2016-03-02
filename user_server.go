@@ -12,7 +12,7 @@ import (
 type UserServer struct {
 	*apiBase
 
-	// GetMetadata handles a request for all availiable metadata for the user.
+	// GetMetadata handles a request for all available metadata for the user.
 	GetMetadata func() error
 
 	// GetValues handles a request for measurements of a give resolution in a given timespan for a given set of sensors.
