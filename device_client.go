@@ -187,14 +187,14 @@ func (c *DeviceClient) authenticate(key []byte) error {
 func NewDeviceClient(url string, key []byte, tlsConfig *tls.Config) (*DeviceClient, error) {
 	dialer := websocket.Dialer{
 		TLSClientConfig: tlsConfig,
-		Subprotocols:    []string{deviceApiProtocolV1},
+		Subprotocols:    []string{deviceAPIProtocolV1},
 	}
 	sock, _, err := dialer.Dial(url, nil)
 	if err != nil {
 		return nil, err
 	}
 
-	wrap, err := initApiBaseFromSocket(sock)
+	wrap, err := initAPIBaseFromSocket(sock)
 	if err != nil {
 		return nil, err
 	}

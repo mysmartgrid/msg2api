@@ -10,7 +10,7 @@ import (
 
 const pingTimeout = 5 * time.Minute
 
-var badFrameType = errors.New("bad frame type")
+var errBadFrameType = errors.New("bad frame type")
 
 type socketWrapper struct {
 	socket *websocket.Conn
@@ -50,7 +50,7 @@ func (w *socketWrapper) receiveFrame() ([]byte, error) {
 		return msg, err
 	}
 	w.Close(websocket.CloseUnsupportedData, "")
-	return nil, badFrameType
+	return nil, errBadFrameType
 }
 
 func (w *socketWrapper) Receive() (string, error) {

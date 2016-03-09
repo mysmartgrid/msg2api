@@ -127,7 +127,7 @@ func (u *UserServer) doRequestRealtimeUpdates(cmd *MessageIn) *Error {
 
 // NewUserServer returns a new UserServer running on a websocket on the given http connection.
 func NewUserServer(w http.ResponseWriter, r *http.Request) (*UserServer, error) {
-	base, err := initApiBaseFromHttp(w, r, []string{userApiProtocolV3})
+	base, err := initAPIBaseFromHTTP(w, r, []string{userAPIProtocolV3})
 	if err != nil {
 		return nil, err
 	}

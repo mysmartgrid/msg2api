@@ -10,11 +10,11 @@ import (
 const (
 	upgradeTimeout = 10 * time.Second
 
-	deviceApiProtocolV1 = "v1.device.msg"
-	userApiProtocolV3   = "v5.user.msg"
+	deviceAPIProtocolV1 = "v1.device.msg"
+	userAPIProtocolV3   = "v5.user.msg"
 )
 
-var protocolNegotiationFailed = errors.New("protocol negotiation failed")
+var errProtocolNegotiationFailed = errors.New("protocol negotiation failed")
 
 type apiBase struct {
 	socket *socketWrapper
@@ -24,11 +24,11 @@ func (b *apiBase) Close() {
 	b.socket.Close(websocket.CloseGoingAway, "")
 }
 
-func initApiBaseFromSocket(conn *websocket.Conn) (*apiBase, error) {
+func initAPIBaseFromSocket(conn *websocket.Conn) (*apiBase, error) {
 	if conn.Subprotocol() == "" {
 		conn.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseProtocolError, ""))
 		conn.Close()
-		return nil, protocolNegotiationFailed
+		return nil, errProtocolNegotiationFailed
 	}
 
 	conn.SetReadLimit(4096)
@@ -38,7 +38,7 @@ func initApiBaseFromSocket(conn *websocket.Conn) (*apiBase, error) {
 	}, nil
 }
 
-func initApiBaseFromHttp(w http.ResponseWriter, r *http.Request, protocols []string) (*apiBase, error) {
+func initAPIBaseFromHTTP(w http.ResponseWriter, r *http.Request, protocols []string) (*apiBase, error) {
 	upgrader := websocket.Upgrader{
 		HandshakeTimeout: upgradeTimeout,
 		Subprotocols:     protocols,

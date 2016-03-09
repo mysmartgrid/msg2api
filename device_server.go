@@ -32,7 +32,7 @@ type DeviceServer struct {
 	UpdateMetadata func(metadata *DeviceMetadata) *Error
 }
 
-var authenticationFailed = errors.New("authentication failed")
+var errAuthenticationFailed = errors.New("authentication failed")
 
 func (d *DeviceServer) authenticate(key []byte) error {
 	var buf [sha256.Size]byte
@@ -59,7 +59,7 @@ func (d *DeviceServer) authenticate(key []byte) error {
 	mac.Write(buf[:])
 	expected := mac.Sum(nil)
 	if !hmac.Equal(msg, expected) {
-		return authenticationFailed
+		return errAuthenticationFailed
 	}
 	return d.socket.Write("proceed")
 }
@@ -172,7 +172,7 @@ func (d *DeviceServer) doUpdateMetadata(msg *MessageIn) *Error {
 
 // NewDeviceServer returns a new DeviceServer running on a websocket on the given http connection.
 func NewDeviceServer(w http.ResponseWriter, r *http.Request) (*DeviceServer, error) {
-	base, err := initApiBaseFromHttp(w, r, []string{deviceApiProtocolV1})
+	base, err := initAPIBaseFromHTTP(w, r, []string{deviceAPIProtocolV1})
 	if err != nil {
 		return nil, err
 	}
