@@ -49,5 +49,5 @@ func initAPIBaseFromHTTP(w http.ResponseWriter, r *http.Request, protocols []str
 		return nil, err
 	}
 
-	return initApiBaseFromSocket(conn)
+	return initAPIBaseFromSocket(conn)
 }
