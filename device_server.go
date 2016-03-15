@@ -23,12 +23,12 @@ type DeviceServer struct {
 
 	// AddSensor is called when the device wants to register a new sensor.
 	// This should only be called once for each sensor and then be stored in the backend.
-	AddSensor func(name, unit string, port int32) *Error
+	AddSensor func(name, unit string, port int32, factor float64) *Error
 
 	// RemoveSensor is called when the device wants to deregister a sensor.
 	RemoveSensor func(name string) *Error
 
-	// UpdateMetadata handles metadata updates for sensors and the device itslef.
+	// UpdateMetadata handles metadata updates for sensors and the device itself.
 	UpdateMetadata func(metadata *DeviceMetadata) *Error
 }
 
@@ -138,7 +138,7 @@ func (d *DeviceServer) doAddSensor(msg *MessageIn) *Error {
 		return operationFailed("not supported")
 	}
 
-	return d.AddSensor(args.Name, args.Unit, args.Port)
+	return d.AddSensor(args.Name, args.Unit, args.Port, args.Factor)
 }
 
 func (d *DeviceServer) doRemoveSensor(msg *MessageIn) *Error {

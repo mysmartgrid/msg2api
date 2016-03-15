@@ -90,13 +90,14 @@ func (c *DeviceClient) Close() {
 
 // AddSensor registers a new sensor at the server.
 // This only has to be doen once for every sensor and is then stored.
-func (c *DeviceClient) AddSensor(name, unit string, port int32) error {
+func (c *DeviceClient) AddSensor(name, unit string, port int32, factor float64) error {
 	cmd := MessageOut{
 		Command: "addSensor",
 		Args: DeviceCmdAddSensorArgs{
-			Name: name,
-			Unit: unit,
-			Port: port,
+			Name:   name,
+			Unit:   unit,
+			Port:   port,
+			Factor: factor,
 		},
 	}
 

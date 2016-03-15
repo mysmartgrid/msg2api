@@ -10,7 +10,7 @@ import (
 const (
 	upgradeTimeout = 10 * time.Second
 
-	deviceAPIProtocolV1 = "v1.device.msg"
+	deviceAPIProtocolV1 = "v2.device.msg"
 	userAPIProtocolV3   = "v5.user.msg"
 )
 

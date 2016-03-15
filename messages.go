@@ -33,9 +33,10 @@ type DeviceCmdUpdateArgs struct {
 
 // DeviceCmdAddSensorArgs describes the Args field of a "addSensor" message from the device.
 type DeviceCmdAddSensorArgs struct {
-	Name string `json:"name"`
-	Unit string `json:"unit"`
-	Port int32  `json:"port"`
+	Name   string  `json:"name"`
+	Unit   string  `json:"unit"`
+	Port   int32   `json:"port"`
+	Factor float64 `json:"factor"`
 }
 
 // DeviceCmdRemoveSensorArgs describes the Args field of a "removeSensor" message from the device.
@@ -82,9 +83,10 @@ type UserEventMetadataArgs struct {
 // SensorMetadata contains different kinds of metadata on a sensor.
 // All fields are optional.
 type SensorMetadata struct {
-	Name *string `json:"name,omitempty"`
-	Unit *string `json:"unit,omitempty"`
-	Port *int32  `json:"port,omitempty"`
+	Name   *string  `json:"name,omitempty"`
+	Unit   *string  `json:"unit,omitempty"`
+	Port   *int32   `json:"port,omitempty"`
+	Factor *float64 `json:"factor,omitempty"`
 }
 
 // DeviceMetadata contains different kinds of metadata on a device.
